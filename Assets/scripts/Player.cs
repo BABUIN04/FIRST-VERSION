@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public float checkGroundOffsetY = -1.8f;
     public float checkGroundRadius = 0.3f;
     public Animator animator;
+    public BlackScreen gam;
 
     Rigidbody2D rb;
     SpriteRenderer sr;
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
     }
@@ -32,6 +34,7 @@ public class Player : MonoBehaviour
         if(isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+            gam.StartBlackScreen();
         }
 
         animator.SetFloat("HorizontalMove", Mathf.Abs(movement));
