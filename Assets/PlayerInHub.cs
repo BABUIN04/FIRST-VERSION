@@ -11,7 +11,7 @@ public class PlayerInHub : MonoBehaviour
 
         if(player != null)
         {
-            player.transform.position = new Vector3(8,-2,0);
+            player.transform.position = new Vector3(8,-0.5f,0);
         }
     }
 }
