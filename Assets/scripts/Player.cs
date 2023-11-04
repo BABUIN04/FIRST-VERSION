@@ -4,68 +4,75 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
-    public float speed = 1f;
+    public float speed = 10f;
     public float jumpForce = 5f;
     public bool isGrounded = false;
     public float checkGroundOffsetY = -1.8f;
     public float checkGroundRadius = 0.3f;
     public Animator animator;
-    public BlackScreen gam;
+    public BlackScreen BlackScreen;
+    float moveHorizontal;
+    bool IsInTrigger = false;
 
     Rigidbody2D rb;
     SpriteRenderer sr;
 
-
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
 
+        DontDestroyOnLoad(this);
+
+    }
+    void Start()
+    {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
     }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        float movement = Input.GetAxis("Horizontal");
-        transform.position += new Vector3(movement, 0, 0) * speed * Time.deltaTime;
-
-        if(isGrounded && Input.GetKeyDown(KeyCode.Space))
+        if(IsInTrigger && Input.GetKeyDown(KeyCode.E))
+        {
+            StartCoroutine(BlackScreen.BlackScreenFunc());
+        }
+        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
-            gam.StartBlackScreen();
         }
-
-        animator.SetFloat("HorizontalMove", Mathf.Abs(movement));
-
-        sr.flipX = movement < 0 ? true : false;
-
-        if(isGrounded == false)
-        {
-            animator.SetBool("Jumping", true);
-        }
-        else
-        {
-            animator.SetBool("Jumping", false);
-        }
-
-        CheckGround();
     }
-
-    private void CheckGround()
+    private void FixedUpdate()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y + checkGroundOffsetY), checkGroundRadius);
+        moveHorizontal = Input.GetKey(KeyCode.D) ? 1 : Input.GetKey(KeyCode.A) ? -1 : 0;
 
-        if(colliders.Length > 1)
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
+
+        transform.Translate(movement * speed * Time.fixedDeltaTime);
+
+        animator.SetFloat("HorizontalMove", Mathf.Abs(moveHorizontal));
+        sr.flipX = moveHorizontal < 0 ? true : false;
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        isGrounded = false;
+        animator.SetBool("Jumping", true);
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "interactable")
+        {
+            IsInTrigger = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        IsInTrigger = false;
+    }
+    //Ќадо переработать как получу ответ с форума
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "floor")
         {
             isGrounded = true;
         }
-        else
-        {
-            isGrounded = false;
-        }
+        animator.SetBool("Jumping", false);
     }
-
-
 }
