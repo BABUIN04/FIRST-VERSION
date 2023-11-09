@@ -58,9 +58,12 @@
   <ItemGroup>
     <Compile Include="Assets\scripts\Player.cs" />
     <Compile Include="Assets\ShowInfoPanel.cs" />
-    <Compile Include="Assets\PlayerInHub.cs" />
-    <Compile Include="Assets\BlackScreen.cs" />
-    <Compile Include="Assets\DontDestroyOnLoad.cs" />
+    <Compile Include="Assets\Iinteract.cs" />
+    <Compile Include="Assets\BlackScreen\BlackScreenTrigger.cs" />
+    <Compile Include="Assets\HubScene\PlayerInHub.cs" />
+    <Compile Include="Assets\BlackScreen\BlackScreen.cs" />
+    <Compile Include="Assets\HubScene\MapStarter.cs" />
+    <Compile Include="Assets\OnStartSceneEnter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
