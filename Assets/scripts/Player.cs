@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -11,29 +10,40 @@ public class Player : MonoBehaviour
     public float checkGroundRadius = 0.3f;
     public Animator animator;
     public BlackScreen BlackScreen;
+    public GameObject mapStarter;
     float moveHorizontal;
-    bool IsInTrigger = false;
-
+    private Iinteract interact;
     Rigidbody2D rb;
     SpriteRenderer sr;
-
-    void Awake()
+    public bool CanMove;
+    public static Player instancePlayer { get; private set; }
+    private void Awake()
     {
-
-        DontDestroyOnLoad(this);
-
+        if (instancePlayer == null)
+        {
+            instancePlayer = this;
+            DontDestroyOnLoad(this);
+            return;
+        }
+        Destroy(this.gameObject);
     }
     void Start()
     {
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
     }
+    private void OnSceneUnloaded(Scene scene)
+    {
+        mapStarter = GameObject.FindGameObjectWithTag("mapObject");
+    }
     private void Update()
     {
-        if(IsInTrigger && Input.GetKeyDown(KeyCode.E))
+        if(interact != null && Input.GetKeyDown(KeyCode.E))
         {
-            StartCoroutine(BlackScreen.BlackScreenFunc());
+            interact.interact();
         }
+
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
@@ -41,7 +51,7 @@ public class Player : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        moveHorizontal = Input.GetKey(KeyCode.D) ? 1 : Input.GetKey(KeyCode.A) ? -1 : 0;
+        moveHorizontal = CanMove ? ( Input.GetKey(KeyCode.D) ? 1 : Input.GetKey(KeyCode.A) ? -1 : 0) : 0;
 
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
 
@@ -57,16 +67,12 @@ public class Player : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "interactable")
-        {
-            IsInTrigger = true;
-        }
+        interact = collision.GetComponent<Iinteract>();
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        IsInTrigger = false;
+        interact = null;
     }
-    //Ќадо переработать как получу ответ с форума
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "floor")
