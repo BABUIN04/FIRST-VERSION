@@ -10,7 +10,6 @@ public class MapStarter : MonoBehaviour, Iinteract
     {
         playerObj = GameObject.FindGameObjectWithTag("Player");
         player = playerObj.GetComponent<Player>();
-        map.SetActive(false);
     }
 
     public void DisActive()
