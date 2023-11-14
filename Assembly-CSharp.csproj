@@ -60,10 +60,10 @@
     <Compile Include="Assets\ShowInfoPanel.cs" />
     <Compile Include="Assets\Iinteract.cs" />
     <Compile Include="Assets\BlackScreen\BlackScreenTrigger.cs" />
-    <Compile Include="Assets\HubScene\PlayerInHub.cs" />
+    <Compile Include="Assets\PlayerSwitchScene.cs" />
     <Compile Include="Assets\BlackScreen\BlackScreen.cs" />
     <Compile Include="Assets\HubScene\MapStarter.cs" />
-    <Compile Include="Assets\OnStartSceneEnter.cs" />
+    <Compile Include="Assets\MapSwitcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

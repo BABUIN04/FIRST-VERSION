@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/hub.unity
     guid: 59d3abdb219185241a020cd5fc2c68ec
+  - enabled: 1
+    path: Assets/Scenes/TheEdgeOfTheForest.unity
+    guid: a26e9ed5cf310894ba33651095857145
   m_configObjects: {}
