@@ -6,6 +6,10 @@ TagManager:
   tags:
   - floor
   - BlackScreen
+  - BlackScreenStarter
+  - map
+  - mapObject
+  - MovingObject
   layers:
   - Default
   - TransparentFX

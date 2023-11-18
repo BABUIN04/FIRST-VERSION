@@ -56,14 +56,17 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\PlatformCallingButton.cs" />
     <Compile Include="Assets\scripts\Player.cs" />
     <Compile Include="Assets\ShowInfoPanel.cs" />
     <Compile Include="Assets\Iinteract.cs" />
+    <Compile Include="Assets\MapSwitcher.cs" />
+    <Compile Include="Assets\CameraController.cs" />
     <Compile Include="Assets\BlackScreen\BlackScreenTrigger.cs" />
     <Compile Include="Assets\PlayerSwitchScene.cs" />
     <Compile Include="Assets\BlackScreen\BlackScreen.cs" />
     <Compile Include="Assets\HubScene\MapStarter.cs" />
-    <Compile Include="Assets\MapSwitcher.cs" />
+    <Compile Include="Assets\MoveToPoint.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
