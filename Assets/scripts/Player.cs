@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer sr;
     public bool CanMove;
+    private Transform m_currMovingPlatform;
     public static Player instancePlayer { get; private set; }
     private void Awake()
     {
@@ -64,6 +65,7 @@ public class Player : MonoBehaviour
     {
         isGrounded = false;
         animator.SetBool("Jumping", true);
+        transform.SetParent(null);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -80,5 +82,12 @@ public class Player : MonoBehaviour
             isGrounded = true;
         }
         animator.SetBool("Jumping", false);
+
+        if (collision.gameObject.tag == "MovingObject")
+        {
+            isGrounded = true;
+            m_currMovingPlatform = collision.gameObject.transform;
+            transform.SetParent(m_currMovingPlatform);
+        }
     }
 }
