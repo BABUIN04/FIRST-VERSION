@@ -7,7 +7,7 @@ public class MoveToPoint : MonoBehaviour
     public int NumberOfPoint;
     public bool DoMove;
 
-    private void FixedUpdate()
+    protected void FixedUpdate()
     {
         if(DoMove)
         {
@@ -15,7 +15,11 @@ public class MoveToPoint : MonoBehaviour
         }
         if(transform.position.x == PointCords[NumberOfPoint].x)
         {
-            DoMove = false;
+            Finish();
         }
+    }
+    public virtual void Finish()
+    {
+        DoMove = false;
     }
 }
